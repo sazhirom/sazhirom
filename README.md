@@ -7,7 +7,7 @@
 <p align="center">
   <img src="https://drive.google.com/file/d/11DCpTcKGkKcWsVzfLpMfgDS45c5uoeqA/view?usp=sharing" width="250"/>
 </p>
----
+
 ## 🎓 About Me
 
 - 🎓 **MBA Graduate**
