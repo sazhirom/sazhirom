@@ -1,11 +1,11 @@
-<h1 align="center">Hello, I'm <a href="https://github.com/yourusername">George Romanov</a> 👋</h1>
+<h1 align="center">Hello, I'm <a href="https://github.com/yourusername">Your Name</a> 👋</h1>
 
 <p align="center">
   <a href="https://github.com/yourusername"><img src="https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Data+Analyst;Supply+Chain+Manager;Business+Analyst;11+Years+Experience&center=true&width=500&height=50"></a>
 </p>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif" width="200"/>
+  <img src="https://www.dataquest.io/wp-content/uploads/2020/05/data-analyst-2-1.jpg" width="400" alt="Data Analysis Image"/>
 </p>
 
 <p align="center">
@@ -18,6 +18,7 @@
   <img src="https://komarev.com/ghpvc/?username=yourusername&color=blue" alt="Profile views" />
 </p>
 
+---
 ---
 ## 🎓 About Me
 
