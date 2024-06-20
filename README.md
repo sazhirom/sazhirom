@@ -4,58 +4,9 @@
   <a href="https://github.com/yourusername"><img src="https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Data+Analyst;Supply+Chain+Manager;Business+Analyst;11+Years+Experience&center=true&width=500&height=50"></a>
 </p>
 
-<style>
-  @keyframes rotateVideos {
-    0% { opacity: 0; }
-    25% { opacity: 1; }
-    50% { opacity: 1; }
-    75% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-  
-  .video-container {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-  }
-  
-  .video-container video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    animation: rotateVideos 9s infinite;
-  }
-</style>
-
-<div class="video-container">
-  <video autoplay muted loop>
-    <source src="https://drive.google.com/file/d/1DgJNKCPp3tRhD-_-1BCJu_C77iXh9zWG/view?usp=drive_link" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video autoplay muted loop>
-    <source src="(https://drive.google.com/file/d/1VRq3uDhHu6N0w-2NRNJyhoInuzvwHhQj/view?usp=drive_link)" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video autoplay muted loop>
-    <source src="(https://drive.google.com/file/d/1czkmBAGGzMox7kVbIqHlR01VI-FE8IoV/view?usp=drive_link)" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
 <p align="center">
-  <a href="https://twitter.com/yourusername"><img src="https://img.shields.io/twitter/follow/yourusername?style=social"></a>
-  <a href="https://www.linkedin.com/in/yourusername"><img src="https://img.shields.io/badge/LinkedIn-Connect-blue"></a>
-  <a href="mailto:youremail@example.com"><img src="https://img.shields.io/badge/Email-Send-orange"></a>
+  <img src="(https://drive.google.com/file/d/11DCpTcKGkKcWsVzfLpMfgDS45c5uoeqA/view?usp=sharing)" width="250"/>
 </p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=yourusername&color=blue" alt="Profile views" />
-</p>
-
----
 ---
 ## 🎓 About Me
 
