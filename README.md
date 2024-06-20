@@ -1,7 +1,7 @@
 <h1 align="center">Hello, I'm <a href="https://github.com/yourusername">Romanov George</a> 👋</h1>
 
 <p align="center">
-  <a href="https://github.com/yourusername"><img src="https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Data+Analyst;Supply+Chain+Manager;Business+Analyst;11+Years+Industrial+Experience&center=true&width=500&height=70"></a>
+  <a href="https://github.com/yourusername"><img src="https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Data+Analyst;Supply+Chain+Manager;Business+Analyst;11+Years+Industrial+Experience&center=true&width=500&height=30"></a>
 </p>
 
 <p align="center">
