@@ -4,20 +4,6 @@
   <a href="https://github.com/yourusername"><img src="https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Data+Analyst;Supply+Chain+Manager;Business+Analyst;11+Years+Experience&center=true&width=500&height=50"></a>
 </p>
 
-<p align="center">
-  <video width="150" height="150" autoplay muted loop>
-    <source src="(https://drive.google.com/file/d/1DgJNKCPp3tRhD-_-1BCJu_C77iXh9zWG/view?usp=drive_link)" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video width="150" height="150" autoplay muted loop>
-    <source src="https://drive.google.com/file/d/1VRq3uDhHu6N0w-2NRNJyhoInuzvwHhQj/view?usp=sharing" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video width="150" height="150" autoplay muted loop>
-    <source src="(https://drive.google.com/file/d/1czkmBAGGzMox7kVbIqHlR01VI-FE8IoV/view?usp=sharing)" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</p>
 <style>
   @keyframes rotateVideos {
     0% { opacity: 0; }
@@ -47,19 +33,18 @@
 
 <div class="video-container">
   <video autoplay muted loop>
-    <source src="https://link-to-your-video-1.mp4" type="video/mp4">
+    <source src="https://drive.google.com/file/d/1DgJNKCPp3tRhD-_-1BCJu_C77iXh9zWG/view?usp=drive_link" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <video autoplay muted loop>
-    <source src="https://link-to-your-video-2.mp4" type="video/mp4">
+    <source src="(https://drive.google.com/file/d/1VRq3uDhHu6N0w-2NRNJyhoInuzvwHhQj/view?usp=drive_link)" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <video autoplay muted loop>
-    <source src="https://link-to-your-video-3.mp4" type="video/mp4">
+    <source src="(https://drive.google.com/file/d/1czkmBAGGzMox7kVbIqHlR01VI-FE8IoV/view?usp=drive_link)" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
-
 <p align="center">
   <a href="https://twitter.com/yourusername"><img src="https://img.shields.io/twitter/follow/yourusername?style=social"></a>
   <a href="https://www.linkedin.com/in/yourusername"><img src="https://img.shields.io/badge/LinkedIn-Connect-blue"></a>
