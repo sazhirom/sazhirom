@@ -9,7 +9,6 @@
   <img src="https://img.shields.io/badge/Data%20Analyst-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Data Analyst Badge">
   <img src="https://img.shields.io/badge/Supply%20Chain%20Manager-4c8c4a?style=for-the-badge&logo=logistics&logoColor=white" alt="Supply Chain Manager Badge">
   <img src="https://img.shields.io/badge/Business%20Analyst-323330?style=for-the-badge&logo=business&logoColor=F7DF1E" alt="Business Analyst Badge">
-  <img src="https://img.shields.io/badge/11%20Years%20Experience-181717?style=for-the-badge&logo=experience&logoColor=white" alt="Experience Badge">
 </p>
 
 
