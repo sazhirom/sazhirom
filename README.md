@@ -12,6 +12,18 @@
 </p>
 
 
+## 🔥 Featured Projects
+
+<p align="center">
+  <a href="https://github.com/sazhirom/Calendar-Balance-Management-of-the-Largest-Polymer-Production-Plant-in-Russia/blob/main/README.md">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=yourusername&repo=project1&theme=radical" alt="Project 1">
+  </a>
+  <a href="https://github.com/yourusername/project2">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=yourusername&repo=project2&theme=radical" alt="Project 2">
+  </a>
+</p>
+
+---
 
 ## 🎓 About Me
 
@@ -52,18 +64,6 @@
 
 ---
 
-## 🔥 Featured Projects
-
-<p align="center">
-  <a href="https://github.com/yourusername/project1">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=yourusername&repo=project1&theme=radical" alt="Project 1">
-  </a>
-  <a href="https://github.com/yourusername/project2">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=yourusername&repo=project2&theme=radical" alt="Project 2">
-  </a>
-</p>
-
----
 
 ## 🌐 Connect with Me
 
