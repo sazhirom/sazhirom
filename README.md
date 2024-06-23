@@ -1,18 +1,16 @@
 <h1 align="center">Hello, I'm <a href="https://github.com/sazhirom">Romanov George</a> 👋</h1>
 
 <p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGJuc2J1YjExMm9jdDF4bGhkaGF3ZGg0bXkyYzRvdDQ3c25qYXk3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4k9BkIfSbgr2LTRB8P/giphy.gif" width="180"/>
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnFxY2hibGhhZHRoZGpoeTZocnhneWxjM2h0ZXFjNXVxYmQzd3k3OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ySeD2PB1OfMSKFEheH/giphy.gif" width="180"/>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Data%20Analyst-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Data Analyst Badge">
   <img src="https://img.shields.io/badge/Supply%20Chain%20Manager-4c8c4a?style=for-the-badge&logo=logistics&logoColor=white" alt="Supply Chain Manager Badge">
   <img src="https://img.shields.io/badge/Business%20Analyst-323330?style=for-the-badge&logo=business&logoColor=F7DF1E" alt="Business Analyst Badge">
   <img src="https://img.shields.io/badge/11%20Years%20Experience-181717?style=for-the-badge&logo=experience&logoColor=white" alt="Experience Badge">
 </p>
-
-<p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGJuc2J1YjExMm9jdDF4bGhkaGF3ZGg0bXkyYzRvdDQ3c25qYXk3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4k9BkIfSbgr2LTRB8P/giphy.gif" width="180"/>
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnFxY2hibGhhZHRoZGpoeTZocnhneWxjM2h0ZXFjNXVxYmQzd3k3OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ySeD2PB1OfMSKFEheH/giphy.gif" width="180"/>
-</p>
-
-
 
 
 
