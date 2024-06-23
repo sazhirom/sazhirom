@@ -15,7 +15,7 @@
 
 | Project Name | Description | Technologies | Link |
 |--------------|-------------|--------------|------|
-| [Production analysis](https://github.com/sazhirom/ZSNH) | Calendar Balance Management of the Largest Polymer Production Plant in Russia. | SQL, SAP, POwer Query, Excel, Excel VBA | [GitHub](https://github.com/sazhirom/ZSNH) |
+| [Production Analysis](https://github.com/sazhirom/ZSNH) | Calendar Balance Management of the Largest Polymer Plant in Russia. | SQL, SAP, Power Query, Excel, Excel VBA | [GitHub](https://github.com/sazhirom/ZSNH) |
 | [Project Beta](https://github.com/yourusername/project-beta) | A web application that helps users manage their tasks efficiently. | JavaScript, React, Node.js | [GitHub](https://github.com/yourusername/project-beta) |
 | [Project Gamma](https://github.com/yourusername/project-gamma) | An innovative mobile app for fitness tracking and health monitoring. | Kotlin, Android, Firebase | [GitHub](https://github.com/yourusername/project-gamma) |
 | [Project Delta](https://github.com/yourusername/project-delta) | A robust backend system for managing e-commerce platforms. | Java, Spring Boot, PostgreSQL | [GitHub](https://github.com/yourusername/project-delta) |
