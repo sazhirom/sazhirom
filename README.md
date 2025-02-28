@@ -134,13 +134,13 @@ Available **08:00 - 20:00 CET**:
 
 | **Function**         | **Description**                                  | **Technologies** |
 |----------------------|--------------------------------------------------|------------------|
-| [**Data Scraping**](https://github.com/sazhirom/scraper/blob/main/README.md#scraping-section)  | Collecting data from three websites and storing it as CSV.  | Python, Selenium, BeautifulSoup, Pandas, regex |
-| [**Data Processing**](https://github.com/sazhirom/scraper/blob/main/README.md#wrangling-section)  | Cleaning and analyzing data, identifying profitable deals, verifying sales history for the top 150 items, validating data, and generating final recommendations. | Pandas, NumPy, regex |
-| [**SQL Database**](https://github.com/sazhirom/scraper/blob/main/README.md#SQL-section)  | Creating the database, connecting via a bastion server, storing data with psycopg2, and periodic record cleanup. | PostgreSQL, AWS, Python, psycopg2 |
-| [**AWS Infrastructure**](https://github.com/sazhirom/scraper/blob/main/README.md#AWS-section)  | Setting up VPC, EC2, RDS PostgreSQL, S3, CloudWatch, IAM, security groups, and service integrations. | AWS (VPC, EC2, S3, CloudWatch, IAM) |
-| [**Docker**](https://github.com/sazhirom/scraper/blob/main/README.md#Docker-section)  | Creating a container for running **Google Chrome** on EC2.  | Docker |
-| [**Bash Automation**](https://github.com/sazhirom/scraper/blob/main/README.md#bash-section)  | Automating EC2 processes with Bash scripts.  | Bash |
-| [**Metabase Visualization**](https://github.com/sazhirom/scraper/blob/main/README.md#Metabase-section)  | Connecting to the database via a bastion server, creating an interactive dashboard. | Metabase |
+| [**Data Scraping**](https://github.com/sazhirom/scraper#scraping-section)  | Collecting data from three websites and storing it as CSV.  | Python, Selenium, BeautifulSoup, Pandas, regex |
+| [**Data Processing**](https://github.com/sazhirom/scraper#wrangling-section)  | Cleaning and analyzing data, identifying profitable deals, verifying sales history for the top 150 items, validating data, and generating final recommendations. | Pandas, NumPy, regex |
+| [**SQL Database**](https://github.com/sazhirom/scraper/#SQL-section)  | Creating the database, connecting via a bastion server, storing data with psycopg2, and periodic record cleanup. | PostgreSQL, AWS, Python, psycopg2 |
+| [**AWS Infrastructure**](https://github.com/sazhirom/scraper#AWS-section)  | Setting up VPC, EC2, RDS PostgreSQL, S3, CloudWatch, IAM, security groups, and service integrations. | AWS (VPC, EC2, S3, CloudWatch, IAM) |
+| [**Docker**](https://github.com/sazhirom/scraper#Docker-section)  | Creating a container for running **Google Chrome** on EC2.  | Docker |
+| [**Bash Automation**](https://github.com/sazhirom/scraper#bash-section)  | Automating EC2 processes with Bash scripts.  | Bash |
+| [**Metabase Visualization**](https://github.com/sazhirom/scraper#Metabase-section)  | Connecting to the database via a bastion server, creating an interactive dashboard. | Metabase |
 
 ---
 <br>
