@@ -94,6 +94,8 @@ Updated **live** from **06:00 to 16:00 CET**:
 | [**Grafana**](https://github.com/sazhirom/ibet#ibet-grafana) | Creating a live analytics dashboard. | Grafana, SQL |
 
 ---
+<br>
+<br><br>
 
 <a id="steam-scraper"></a>
 ### 🎮 Steam Scraper - Result here: [Metabase Dashboard](http://47.129.223.184:3000/public/dashboard/1a51169a-8c3c-4d9e-8ee7-a508fb3f7539)
