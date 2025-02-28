@@ -146,6 +146,7 @@ Available **08:00 - 20:00 CET**:
 <br>
 <br><br>
 <a id="about-section"></a>
+
 ## 💼 Work Experience & Achievements
 
 - 🏢 **11 years of experience in the petrochemical industry**  
@@ -161,6 +162,7 @@ Available **08:00 - 20:00 CET**:
 <br>
 <br><br>
 <a id="skills-section"></a>
+
 ## 🛠️ Skills
 
 ### 👨‍💻 Programming & Scripting
@@ -181,6 +183,7 @@ Available **08:00 - 20:00 CET**:
 <br>
 <br><br>
 <a id="contacts-section"></a>
+
 ## 📬 Contact Me
 
 <p align="left">
