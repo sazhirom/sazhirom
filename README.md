@@ -144,7 +144,6 @@ Available **08:00 - 20:00 CET**:
 
 ---
 <br>
-<br><br>
 <a id="about-section"></a>
 
 ## 💼 Work Experience & Achievements
@@ -160,7 +159,6 @@ Available **08:00 - 20:00 CET**:
 
 ---
 <br>
-<br><br>
 <a id="skills-section"></a>
 
 ## 🛠️ Skills
@@ -181,7 +179,6 @@ Available **08:00 - 20:00 CET**:
 
 ---
 <br>
-<br><br>
 <a id="contacts-section"></a>
 
 ## 📬 Contact Me
