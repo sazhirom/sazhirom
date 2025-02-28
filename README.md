@@ -1,4 +1,4 @@
-<h1 align="center">Hello, I'm <a href="https://github.com/sazhirom">Romanov George</a> 👋</h1>
+<h1 align="center">Hello, I'm <a href="https://github.com/sazhiromru">George Romanov</a> 👋</h1>
 
 <p align="center">
   <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGJuc2J1YjExMm9jdDF4bGhkaGF3ZGg0bXkyYzRvdDQ3c25qYXk3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4k9BkIfSbgr2LTRB8P/giphy.gif" width="180"/>
@@ -6,49 +6,151 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Data%20Analyst-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Data Analyst Badge">
-  <img src="https://img.shields.io/badge/Supply%20Chain%20Manager-4c8c4a?style=for-the-badge&logo=logistics&logoColor=white" alt="Supply Chain Manager Badge">
-  <img src="https://img.shields.io/badge/Business%20Analyst-323330?style=for-the-badge&logo=business&logoColor=F7DF1E" alt="Business Analyst Badge">
+  <img src="https://img.shields.io/badge/Data%20Engineer-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Data Engineer Badge">
+  <img src="https://img.shields.io/badge/Business%20Analyst-323330?style=for-the-badge&logo=soundcharts&logoColor=white" alt="Business Analyst Badge">
 </p>
 
-## 🔥 Featured Projects
+---
 
-| Project Name | Description | Technologies | Link |
-|--------------|-------------|--------------|------|
-| [Production Analysis](https://github.com/sazhirom/ZSNH) | Calendar Balance Management of the Largest Polymer Plant in Russia. | SQL, SAP, Power Query, Excel, Excel VBA | [GitHub](https://github.com/sazhirom/ZSNH) |
-| [Project Beta](https://github.com/yourusername/project-beta) | A web application that helps users manage their tasks efficiently. | JavaScript, React, Node.js | [GitHub](https://github.com/yourusername/project-beta) |
-| [Project Gamma](https://github.com/yourusername/project-gamma) | An innovative mobile app for fitness tracking and health monitoring. | Kotlin, Android, Firebase | [GitHub](https://github.com/yourusername/project-gamma) |
-| [Project Delta](https://github.com/yourusername/project-delta) | A robust backend system for managing e-commerce platforms. | Java, Spring Boot, PostgreSQL | [GitHub](https://github.com/yourusername/project-delta) |
+## 📋 Table of Contents
+
+- [🔥 Complex ETL Projects](#etl)
+  - [💰 Betting Analyzer (*Python: BS4, Selenium, Pandas, NumPy → GoogleCloud → Airflow, Redis → Kafka → ClickHouse → Grafana)*](#betting)
+  - [🎮 Steam Scraper (*Python: BS4, Selenium, Pandas, NumPy → AWS → PostgreSQL → Metabase)*](#steam-scraper)
+- [📈 Smaller Projects](#small)
+  - [📊 Dashboard - Key Performance Indicators for a Petrochemical Holding (*SQL - PowerBI*)](#dashboard-production)
+  - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
+- [🎓 About Me](#about-section)
+- [🛠️ Skills](#skills-section)
+- [💼 Work Experience](#experience-section)
+- [📬 Contacts](#contacts-section)
+
+---
+<br>
+<br>
+
+<a id="ETL"></a>
+## 🔥 Complex ETL Projects
+---
+<a id="betting"></a>
+### 💰 Betting Analyzer - Result here: [Grafana Dashboard](http://35.221.182.237:3000/public-dashboards/d10f4d4c98d44da3900a12b173f9a3bb)
+
+---
+![Project Diagram](https://raw.githubusercontent.com/sazhiromru/images/refs/heads/main/mermaid-diagram-2025-01-08-082426.svg)
+
+---
+#### 🎯 Project Goal
+A system that **synchronizes live odds from the three largest betting sites** and identifies the best betting opportunities.
+
+#### 🔍 Challenges & Solutions
+- **Website restrictions**: Platforms are protected from scraping and require authorization.  
+- **Limited server resources**: The 1-2 GB RAM servers required **code optimization** and **efficient memory management**.  
+- **Real-time data analysis**: Data must be **collected synchronously with random timing**—requiring a **coordinator and error handling system**.  
+- **Optimizing ClickHouse for 2GB RAM**: ClickHouse is not designed for small instances, requiring fine-tuning for stability.  
+
+#### 🔧 Implementation  
+The system consists of **five servers**:
+1. **Coordinator server**:
+   - A **Python script** monitors scraper readiness, generates random parsing intervals, manages event triggers, and restarts instances when failures occur.  
+   - **Redis** is used for fast data exchange.  
+   - **Airflow** manages task scheduling and recovery.  
+   - **Kafka Producer** sends data to the database server.  
+   - A **Python processing script** matches events and selects the best betting odds.  
+   - **Grafana dashboard** visualizes results from ClickHouse.  
+2. **Three scraper servers**:
+   - Collect live betting odds at specified intervals.  
+   - Also scrape **pre-match** odds and match results.  
+3. **Database server**:
+   - **Kafka Receiver** for incoming data.  
+   - **ClickHouse** to store and process betting data.  
+
+#### 🛠️ Technologies  
+- **Programming**: Python  
+- **Database**: ClickHouse, PostgreSQL (for Airflow)  
+- **Infrastructure**: Google Cloud, Airflow automation, Redis, Kafka  
+- **Visualization**: Grafana  
 
 ---
 
-## 🎓 About Me
+## 📊 Link to Dashboard  
+Updated **live** from **06:00 to 16:00 CET**:  
+[Grafana Dashboard](http://35.221.182.237:3000/public-dashboards/d10f4d4c98d44da3900a12b173f9a3bb)  
 
-- 🎓 **RANEPA MBA Graduate**
-- 💼 **Experienced in Supply Chain Management, Business Analysis, and Data Analysis** for the largest petrochemical company in Russia.
-- 🏢 **11 years of industry experience**
-- 📊 **Passionate about turning data into actionable insights** and driving business decisions.
-- 
-## 🛠️ Technical Skills
+---
+
+<a id="steam-scraper"></a>
+### 🎮 Steam Scraper - Result here: [Metabase Dashboard](http://47.129.223.184:3000/public/dashboard/1a51169a-8c3c-4d9e-8ee7-a508fb3f7539)
+
+---
+![Project Diagram](https://raw.githubusercontent.com/sazhiromru/images/969a0f40bed959fac421447a24223250edea6b76/steam-diagram.svg)
+
+---
+#### 🎯 Project Goal
+Automating **the search for the most profitable deals** on gaming marketplaces **Market-CSGO, Buff, and C5Game**.  
+
+#### 🔍 Challenges & Solutions
+- **Website restrictions**: Buff requires authentication; over 40,000 items need tracking.  
+- **Limited resources**: **1GB RAM server** required code optimization.  
+- **Data volatility**: Large fluctuations in prices required **historical sales analysis**.  
+
+#### 🔧 Implementation
+1. **Identifies potential deals** based on price differences.  
+2. **Collects sales history** (prices & dates) for each item.  
+3. **Ranks recommendations** based on profit potential and demand.  
+
+#### 🛠️ Technologies
+- **Programming**: Python  
+- **Database**: PostgreSQL  
+- **Infrastructure**: AWS, Docker for environment testing  
+- **Visualization**: Metabase  
+
+## 📊 Link to Dashboard  
+Available **08:00 - 20:00 CET**:  
+[Metabase Dashboard](http://47.129.223.184:3000/public/dashboard/1a51169a-8c3c-4d9e-8ee7-a508fb3f7539)  
+
+---
+
+<a id="about-section"></a>
+## 💼 Work Experience & Achievements
+
+- 🏢 **11 years of experience in the petrochemical industry**  
+  - **Supply chain management, business analytics, and data analytics**.  
+- 🎓 **MBA Graduate from RANEPA**  
+  - Accredited by **AMBA** and **AACSB**.  
+- 🌍 **Internship in Germany (Deutsche Management Akademie Niedersachsen, Hansa-Flex)**  
+- 📊 **IELTS 8.0 (C1 English)**  
+- 📜 **IBM Data Engineer Professional Certificate**  
+- ☁️ **AWS Certified Cloud Practitioner**  
+
+---
+
+<a id="skills-section"></a>
+## 🛠️ Skills
 
 ### 👨‍💻 Programming & Scripting
-- **Python (Pandas, NumPy, Matplotlib, Seaborn, Selenium, BeautifulSoup, re )**
-- **SQL**
+- **Python (Pandas, NumPy, Matplotlib, Seaborn, Selenium, BeautifulSoup, regex)**  
+- **SQL (PostgreSQL, ClickHouse, MySQL)**  
 
-### 📊 Data Vizualization Tools
-- **Power BI**
-- **Metabase**
+### 📊 Data Visualization Tools
+- **Power BI**  
+- **Metabase**  
+- **Grafana**  
 
-### 🗄️ Databases
-- **PostgreSQL**
-- **MySQL**
-- - **ClickHouse**
-
-### ☁️ Cloud & Others
-- **AWS Cloud Practitioner**
-- **Jupyter Notebooks**
+### ☁️ Cloud & Other Technologies
+- **AWS Cloud Practitioner**  
+- **Docker**  
+- **Airflow, Kafka, Redis**  
 
 ---
 
+<a id="contacts-section"></a>
+## 📬 Contact Me
 
-
+<p align="left">
+  <a href="https://t.me/poi8lkj" target="_blank">
+    <img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram">
+  </a>
+  <a href="https://linkedin.com/in/your-profile" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
+</p>
