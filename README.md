@@ -144,6 +144,265 @@ Available **08:00 - 20:00 CET**:
 
 ---
 <br>
+<br>
+
+<a id="small"></a>
+## 📈 Smaller projects
+
+---
+
+<a id="dashboard-production"></a>
+### 📊 Dashboard - key production metrics of petrochemical holding  
+
+#### 📊 Dashboard description  
+
+This dashboard integrates data from three sources:  
+
+1. **Actual Production** — extracted from SAP.  
+2. **Initial Plan** — data as of the first day of the month.  
+3. **Updated Plan** — data as of the current date.  
+
+For six plants, plans are stored in six separate Excel files, while actual production data from SAP is saved in a seventh file.  
+
+#### Dashboard Functionality
+
+**Current Date**  
+- **Displays actual production metrics.**  
+- **Difference**: calculated as `Plan - Actual` and visualized in a graph.  
+
+**End of Month**  
+- **Total Actual Production**: displays data from the 1st of the month to the current date.  
+- **Updated Plan**: includes projected data for the remaining days of the month.  
+- **End-of-Month Difference**: shows changes in the plan made throughout the month.  
+
+#### Benefits  
+This dashboard allows users to:  
+1. **Monitor actual production metrics.**  
+2. **Quickly analyze updated forecasts** for key product categories by the end of the month.  
+3. **Identify deviations from the initial plan** and investigate their causes.  
+
+<details>
+  <summary><strong>📜 Дэшборд</strong></summary>
+
+<div align="center">
+    <img src="https://raw.githubusercontent.com/sazhirom/images/main/DB1.PNG" alt="Внешний вид дэшборда" width="100%" />
+    <img src="https://raw.githubusercontent.com/sazhirom/images/main/db2.PNG" alt="Внешний вид дэшборда" width="100%" />
+    <img src="https://raw.githubusercontent.com/sazhirom/images/main/db3.PNG" alt="Внешний вид дэшборда" width="100%" />
+</div>  
+</details>
+
+---  
+---
+<br>
+<br>
+
+<a id="kaggle"></a>
+### 🏆 Kaggle competition - Child Mind - Pandas, SNS, matplotlib, LGBM 
+
+**Objective**: Predict which children and teenagers may have problematic internet usage.  
+
+**Data**: Anonymous survey data containing demographic, psychological, and behavioral information, helping to understand the relationship between various factors and susceptibility to problematic internet behavior.  
+
+**Super Simple Description**:  
+The dataset includes information on 4,000 children, covering their academic performance, physical education grades, weight/height, achievements in various sports metrics, BMI, and more. Additionally, for approximately 900 children, accelerometer data is available, which seems rather useless in my opinion (data is present for 29% of children, and in the test dataset, only 2 out of 30 cases—6%). Based on these characteristics, the task is to predict the SII level—a measure of how dependent a child is on the internet and how negatively it affects their life.  
+
+**Idea**  
+Analysts aim to predict SII—a target categorical variable. Instead, I attempted to predict PCIAT-TOTAL—the result of a questionnaire that determines SII. Unlike SII, PCIAT-TOTAL is not discrete and operates based on the following formula:  
+1. From 0 to 20 points - 0 dependency category  
+2. From 21 to 40 points - 1 dependency category, and so on.  
+   Since this value is continuous rather than discrete like SII, the prediction should theoretically be more accurate.  
+
+**Result**  
+Becoming a data scientist isn't happening anytime soon for me. My result—0.38, while the top 1,000 scores range from 0.4 to 0.5.  
+Kaggle notebook link: [https://www.kaggle.com/code/georgiiromanov/child-mind-final](https://www.kaggle.com/code/georgiiromanov/child-mind-final)  
+
+<details>
+  <summary><strong>📜 Код Kaggle</strong></summary>
+
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import LabelEncoder
+import numpy as np 
+import pandas as pd 
+os
+from sklearn.impute import KNNImputer 
+
+count = 0
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+        count +=1
+        if count >= 15:
+            break
+    if count >= 15:
+        break
+        
+data_train = pd.read_csv(r'/kaggle/input/child-mind-institute-problematic-internet-use/train.csv')
+data_test = pd.read_csv('/kaggle/input/child-mind-institute-problematic-internet-use/test.csv')
+data_train.head()
+
+# Remove rows with null values in the target metric and plot the distribution
+filtered_data = data_train[data_train['sii'].notna()].reset_index()
+
+sns.countplot(data = filtered_data, x = 'sii')
+
+plt.title('Sii Distribution')
+plt.xlabel('Sii Value')
+plt.ylabel('Count')
+plt.show()
+
+# Distribution by gender and age
+sns.countplot(data = filtered_data, x = 'Basic_Demos-Age', hue = 'Basic_Demos-Sex' )
+
+plt.title('Age/Sex Distribution')
+plt.xlabel('Count')
+plt.legend(['Male','Female'], title = 'Gender')
+plt.show()
+
+# Another distribution visualization using stacked columns
+pivot_table = filtered_data.pivot_table(index = 'Basic_Demos-Age', columns = 'Basic_Demos-Sex', aggfunc = 'size', fill_value = 0)
+pivot_table.head()
+
+pivot_table.plot(kind = 'bar', stacked = True)
+plt.title('Another visualization for clarity')
+plt.legend(['Male', 'Female'], title ='Gender')
+plt.tight_layout()
+plt.show()
+
+# Remove columns that are not in the test dataset, except for the target variable
+columns_to_drop = [col for col in data_train.columns if col not in data_test.columns]
+print(columns_to_drop)
+columns_to_drop.remove('PCIAT-PCIAT_Total')
+filtered_data.drop(columns = columns_to_drop, inplace = True)
+
+# Plot missing values percentage for each column and choose a threshold of 35%
+graph = filtered_data.isnull().sum().apply(lambda x: x/len(filtered_data['PCIAT-PCIAT_Total'])*100).sort_values(ascending = False)
+graph.plot(kind = 'barh', figsize = (20,30))
+plt.gca().yaxis.set_tick_params(labelsize=18, pad=5)
+plt.tight_layout()
+plt.gca().grid()
+ticks = [x*5 for x in range(1,21)]
+plt.gca().xaxis.set_ticks(ticks)
+
+# Remove columns with more than 35% NaN values
+indexes_to_delete = graph.index[graph > 35].tolist()
+filtered_data.drop(columns = indexes_to_delete, inplace = True)
+
+# Also remove ID columns as accelerometer data is not used
+columns_to_drop_2 = ['index','id']
+filtered_data.drop(columns = columns_to_drop_2, inplace = True)
+
+# Convert categorical columns to numeric values (mainly seasons when tests were conducted)
+column_to_label = filtered_data.select_dtypes(include = 'object').columns
+
+labeled_data = filtered_data.copy()
+label_coder = LabelEncoder()
+for col in column_to_label:
+    labeled_data[f'{col}'] = label_coder.fit_transform(labeled_data[f'{col}'])
+
+# Build a heatmap in sns, analyze visually, choose a threshold of 70%, remove highly correlated columns (mostly body mass/composition metrics)
+matrix = labeled_data.corr()
+plt.figure(figsize=(40, 40))
+sns.heatmap(matrix, annot=True, cmap='coolwarm', linewidths=0.5, fmt='.2f', vmin=-1, vmax=1)
+
+limit = 0.7
+
+drop_columns_3 = set()
+for i in range(len(matrix.columns)):
+    for j in range(i):
+        if abs(matrix.iloc[i, j]) > limit:
+            col = matrix.columns[i]
+            drop_columns_3.add(col)
+
+drop_columns_3.discard('PCIAT-PCIAT_Total')
+
+cleaned_data = labeled_data.drop(columns=drop_columns_3)
+
+imputers = {}
+imputed_dataset = {}
+
+imputers = KNNImputer(n_neighbors=17)
+    
+imputed_dataset = pd.DataFrame(
+    imputers.fit_transform(cleaned_data), 
+    columns=cleaned_data.columns)
+
+# Create the model and tune hyperparameters
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
+from sklearn.metrics import mean_squared_error
+import lightgbm as lgb
+import pandas as pd
+import numpy as np
+
+SEED = 42
+
+X = imputed_dataset.drop(columns=['PCIAT-PCIAT_Total'])
+y = imputed_dataset['PCIAT-PCIAT_Total']
+
+# Split data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SEED)
+
+# Parameter grid for hyperparameter tuning
+param_grid = {
+    'learning_rate': [0.05],  
+    'max_depth': [4, 6],
+    'num_leaves': [200, 300, 400, 500],
+    'min_data_in_leaf': [10],  
+    'feature_fraction': [0.4, 0.5, 0.6],
+    'bagging_fraction': [0.9],
+    'bagging_freq': [3],  
+    'lambda_l1': [1, 2, 3, 4, 4.735462555910575],
+    'lambda_l2': [3e-05, 3e-04, 4.735028557007343e-06],
+}
+
+model = lgb.LGBMRegressor(random_state=42, verbose=-1)
+
+search = RandomizedSearchCV(
+    estimator=model,
+    param_distributions=param_grid,
+    n_iter=10,
+    scoring='neg_mean_squared_error',
+    cv=5,
+    random_state=42,
+    verbose=1
+)
+
+search.fit(X_train, y_train)
+print("Best Parameters:", search.best_params_)
+print(f"Best RMSE: {(-search.best_score_)**0.5:.4f}")
+
+best_model = search.best_estimator_
+columns_final = list(imputed_dataset.columns)
+columns_final.remove('PCIAT-PCIAT_Total')
+X_test = data_test[columns_final]
+
+# Transform categorical columns
+column_to_label_2 = X_test.select_dtypes(include='object').columns
+for col in column_to_label_2:
+    X_test.loc[:, col] = label_coder.fit_transform(X_test[col])
+
+X_final_test = pd.DataFrame(
+    imputers.fit_transform(X_test), 
+    columns=X_test.columns)
+
+y_pred = best_model.predict(X_final_test)
+X_final_test['PCIAT_TOTAL'] = y_pred
+X_final_test['sii'] = np.where(X_final_test['PCIAT_TOTAL']<21,0,
+                              np.where(X_final_test['PCIAT_TOTAL']<31,1,2))
+X_final_test['id'] = data_test['id']
+X_final_test[['id','sii']].to_csv('submission.csv', index=False, na_rep='null')
+
+
+```
+
+</details>
+
+---  
+---
+<br>
+<br>
+
 <a id="about-section"></a>
 
 ## 💼 Work Experience & Achievements
