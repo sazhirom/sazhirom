@@ -143,7 +143,8 @@ Available **08:00 - 20:00 CET**:
 | [**Metabase Visualization**](https://github.com/sazhirom/scraper/blob/main/README.md#Metabase-section)  | Connecting to the database via a bastion server, creating an interactive dashboard. | Metabase |
 
 ---
-
+<br>
+<br><br>
 <a id="about-section"></a>
 ## 💼 Work Experience & Achievements
 
@@ -157,7 +158,8 @@ Available **08:00 - 20:00 CET**:
 - ☁️ **AWS Certified Cloud Practitioner**  
 
 ---
-
+<br>
+<br><br>
 <a id="skills-section"></a>
 ## 🛠️ Skills
 
@@ -176,7 +178,8 @@ Available **08:00 - 20:00 CET**:
 - **Airflow, Kafka, Redis**  
 
 ---
-
+<br>
+<br><br>
 <a id="contacts-section"></a>
 ## 📬 Contact Me
 
