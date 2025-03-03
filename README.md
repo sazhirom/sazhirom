@@ -51,7 +51,7 @@ A system that **synchronizes live odds from the three largest betting sites** an
 - **Website restrictions**: Platforms are protected from scraping and require authorization.  
 - **Limited server resources**: The 1-2 GB RAM servers required **code optimization** and **efficient memory management**.  
 - **Real-time data analysis**: Data must be **collected synchronously with random timing**—requiring a **coordinator and error handling system**.  
-- **Optimizing ClickHouse for 2GB RAM**: ClickHouse is not designed for small instances, requiring fine-tuning for stability.  
+- **Optimizing ClickHouse for 4GB RAM**: ClickHouse is not designed for small instances, requiring fine-tuning for stability.  
 
 #### 🔧 Implementation  
 The system consists of **five servers**:
