@@ -36,7 +36,12 @@
 ### 💰 Betting Analyzer - Result here: [Grafana Dashboard](http://35.221.182.237:3000/public-dashboards/d10f4d4c98d44da3900a12b173f9a3bb)
 
 ---
+#### 🔀 Project Data Flow
+![Project DataFlow](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/diagram.png)  
+
+#### 🛠️ Project Data Architecture
 ![Project Diagram](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/mermaid-diagram-2025-01-08-082426.svg)
+
 
 ---
 #### 🎯 Project Goal
