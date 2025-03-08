@@ -33,7 +33,7 @@
 ## 🔥 Complex ETL Projects
 ---
 <a id="betting"></a>
-### 💰 Betting Analyzer - Result here: [Grafana Dashboard](http://35.221.182.237:3000/public-dashboards/d10f4d4c98d44da3900a12b173f9a3bb)
+### 💰 Betting Analyzer - Result here: [Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)
 
 ---
 #### 🔀 Project Data Flow
@@ -79,7 +79,7 @@ The system consists of **five servers**:
 
 ## 📊 Link to Dashboard  
 Updated **live** from **06:00 to 16:00 CET**:  
-[Grafana Dashboard](http://35.221.182.237:3000/public-dashboards/d10f4d4c98d44da3900a12b173f9a3bb)  
+[Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)  
 
 ---
 
