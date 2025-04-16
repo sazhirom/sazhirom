@@ -6,8 +6,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Data%20Engineer-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Data Engineer Badge">
   <img src="https://img.shields.io/badge/Business%20Analyst-323330?style=for-the-badge&logo=soundcharts&logoColor=white" alt="Business Analyst Badge">
+  <img src="https://img.shields.io/badge/ETL%20Developer-4B8BBE?style=for-the-badge&logo=docker&logoColor=white" alt="ETL Developer Badge"> 
 </p>
 
 ---
