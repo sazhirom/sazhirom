@@ -45,7 +45,9 @@ Main Showcase for Dashboards is here - [**Tableau Profile**](https://public.tabl
 ## 🔥 Complex ETL Projects
 ---
 <a id="betting"></a>
-### 💰 Betting Analyzer - Result here: [**Grafana Dashboard**](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)
+### 💰 Betting Analyzer  
+📈 [View the Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)
+
 
 ---
 
