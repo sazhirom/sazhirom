@@ -20,7 +20,6 @@
   - [🎮 Steam Scraper (*Python: BS4, Selenium, Pandas, NumPy → AWS → PostgreSQL → Metabase)*](#steam-scraper)
 - [📈 Smaller Projects](#small)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
-- [🎓 About Me](#about-section)
 - [🛠️ Skills](#skills-section)
 - [💼 Work Experience](#experience-section)
 - [📬 Contacts](#contacts-section)
@@ -181,51 +180,6 @@ Available **08:00 - 20:00 CET**:
 ## 📈 Smaller projects
 
 ---
-
-<a id="dashboard-production"></a>
-### 📊 Dashboard - key production metrics of petrochemical holding  
-
-#### 📊 Dashboard description  
-
-This dashboard integrates data from three sources:  
-
-1. **Actual Production** — extracted from SAP.  
-2. **Initial Plan** — data as of the first day of the month.  
-3. **Updated Plan** — data as of the current date.  
-
-For six plants, plans are stored in six separate Excel files, while actual production data from SAP is saved in a seventh file.  
-
-#### Dashboard Functionality
-
-**Current Date**  
-- **Displays actual production metrics.**  
-- **Difference**: calculated as `Plan - Actual` and visualized in a graph.  
-
-**End of Month**  
-- **Total Actual Production**: displays data from the 1st of the month to the current date.  
-- **Updated Plan**: includes projected data for the remaining days of the month.  
-- **End-of-Month Difference**: shows changes in the plan made throughout the month.  
-
-#### Benefits  
-This dashboard allows users to:  
-1. **Monitor actual production metrics.**  
-2. **Quickly analyze updated forecasts** for key product categories by the end of the month.  
-3. **Identify deviations from the initial plan** and investigate their causes.  
-
-<details>
-  <summary><strong>📜 Дэшборд</strong></summary>
-
-<div align="center">
-    <img src="https://raw.githubusercontent.com/sazhirom/images/main/DB1.PNG" alt="Внешний вид дэшборда" width="100%" />
-    <img src="https://raw.githubusercontent.com/sazhirom/images/main/db2.PNG" alt="Внешний вид дэшборда" width="100%" />
-    <img src="https://raw.githubusercontent.com/sazhirom/images/main/db3.PNG" alt="Внешний вид дэшборда" width="100%" />
-</div>  
-</details>
-
----  
----
-<br>
-<br>
 
 <a id="kaggle"></a>
 ### 🏆 Kaggle competition - Child Mind - Pandas, SNS, matplotlib, LGBM 
