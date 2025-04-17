@@ -14,7 +14,7 @@
 
 ## 📋 Table of Contents
 
-- [📊 Dashboards](#dashboards)
+- [📊 Dashboards (*Tableau + Grafana)*](#dashboards)
 - [🔥 Complex ETL Projects](#etl)
   - [💰 Betting Analyzer (*Python: BS4, Selenium, Pandas, NumPy → GoogleCloud → Airflow, Redis → Kafka → ClickHouse → Grafana)*](#betting)
   - [🎮 Steam Scraper (*Python: BS4, Selenium, Pandas, NumPy → AWS → PostgreSQL → Metabase)*](#steam-scraper)
@@ -42,6 +42,7 @@ Main Showcase for Dashboards is here - [**Tableau Profile**](https://public.tabl
 | ![**Purchasing Power: Europe Comparison**](https://github.com/sazhirom/Tableau/blob/main/costliving.png?raw=true)  | Not overly complex, but illustrates a histogram and a map linked with the histogram, highlight actions, and the ability to customize maps. Data from Numbeo.  | [**Link to Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/CostoflivingEurope/Dashboard1) |
 | ![**KPI Dashboard**](https://github.com/sazhirom/Tableau/blob/main/mini.png?raw=true)  | Allows dynamic month-to-month KPI comparisons and year-over-year running sum analysis across all key metrics. The most complex feature involves advanced formulas with fixed views to display a running sum of percentage values, illustrating the cumulative profit ratio. | [**Link to Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/MinimalisticDashboardwithKPI/Dashboard1) |
 | ![**Green Energy**](https://github.com/sazhirom/Tableau/blob/main/green.png?raw=true)  | Compares the share of green energy in the top 10 GDP countries, with the ability to view both absolute and relative values. | [**Link to Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/GlobalGreenEnergyTrends/Dashboard1) |
+| ![**Betting Analyzer ETL**](https://github.com/sazhirom/Tableau/blob/main/grafana.PNG?raw=true)  | Grafana dashboard for that ETL_project(#betting). Featuring conditinal colour formatiing for different values, bunch of optimization to reduce server load and a lot of SQL. | [View the Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883) |
 
 
 ---
