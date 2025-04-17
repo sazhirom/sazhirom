@@ -204,7 +204,7 @@ Available **08:00 - 20:00 CET**:
 
 **Data**: 270,000 survey responses from the World Values Survey (Wave 7, 2017–2022).
 
-**Idea** I aimed to identify the most significant generational gaps within a very specific demographic: middle-aged Europeans. I compared two closely matched groups — individuals aged 25–34 and those aged 55–64. Both groups share many similarities: most have children, stable jobs, and rely on the Internet as their primary source of news. This makes the differences between them especially interesting.
+**Idea**: I aimed to identify the most significant generational gaps within a very specific demographic: middle-aged Europeans. I compared two closely matched groups — individuals aged 25–34 and those aged 55–64. Both groups share many similarities: most have children, stable jobs, and rely on the Internet as their primary source of news. This makes the differences between them especially interesting.
 
 <details>
   <summary>Python code</summary>
@@ -282,6 +282,10 @@ df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
 ```
 </details>
 
+<details>
+  <summary>Tableau Dashboard, not the best work but anyway</summary>
+  [**Dashboard**](https://github.com/sazhirom/Tableau/blob/main/values.png?raw=true)
+</details>
 ---
 <br>
 <br>
