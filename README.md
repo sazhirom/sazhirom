@@ -283,10 +283,12 @@ df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
 </details>
 
 <details>
-  <summary>Tableau Dashboard, not the best work but anyway</summary>
-  [**Dashboard**](https://github.com/sazhirom/Tableau/blob/main/values.png?raw=true)
-  [**Metabase Visualization**](https://github.com/sazhirom/scraping#Metabase-section)
+  <summary>Tableau Dashboard (not my best work, but still worth sharing)</summary>
+
+- 📊 [**Dashboard (Image)**](https://github.com/sazhirom/Tableau/blob/main/values.png?raw=true)  
+
 </details>
+
 
 ---
 <br>
