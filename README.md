@@ -243,7 +243,7 @@ This dashboard allows users to:
 <br>
 <br>
 
-<a id="about-section"></a>
+<a id="experience-section"></a>
 
 ## 💼 Work Experience & Achievements
 
@@ -254,7 +254,6 @@ This dashboard allows users to:
 - 🌍 **Internship in Germany (Deutsche Management Akademie Niedersachsen, Hansa-Flex)**  
 - 📊 **IELTS 8.0 (C1 English)**  
 - 📜 **IBM Data Engineer Professional Certificate**  
-
 ---
 <br>
 <a id="skills-section"></a>
