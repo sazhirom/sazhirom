@@ -14,11 +14,11 @@
 
 ## 📋 Table of Contents
 
+- [📊 Dashboards](#dashboards)
 - [🔥 Complex ETL Projects](#etl)
   - [💰 Betting Analyzer (*Python: BS4, Selenium, Pandas, NumPy → GoogleCloud → Airflow, Redis → Kafka → ClickHouse → Grafana)*](#betting)
   - [🎮 Steam Scraper (*Python: BS4, Selenium, Pandas, NumPy → AWS → PostgreSQL → Metabase)*](#steam-scraper)
 - [📈 Smaller Projects](#small)
-  - [📊 Dashboard - Key Performance Indicators for a Petrochemical Holding (*SQL - PowerBI*)](#dashboard-production)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
 - [🎓 About Me](#about-section)
 - [🛠️ Skills](#skills-section)
@@ -29,6 +29,17 @@
 <br>
 <br>
 
+<a id="Dashboards"></a>
+## 📊 Dashboards
+
+Main Showcase for Dashboards is here - 
+| **Dashboard*         | **Description**                                  | **Link** |
+|----------------------|--------------------------------------------------|------------------|
+| [**Hotel Survey/Linker diagram**](https://github.com/sazhirom/Tableau/blob/main/hotel.png?raw=true)  | Dashboard featuring Linker Diagram, custom filters, highlight actions. Based on synthetic data generated in Python Faker  | [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/HotelSurveyLinkerExample/Dashboard1) |
+
+---
+<br>
+<br>
 <a id="ETL"></a>
 ## 🔥 Complex ETL Projects
 ---
@@ -36,14 +47,7 @@
 ### 💰 Betting Analyzer - Result here: [Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)
 
 ---
-#### 🔀 Project Data Flow
-![Project DataFlow](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/diagram3.svg)  
 
-#### 🛠️ Project Data Architecture
-![Project Diagram](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/mermaid-diagram-2025-01-08-082426.svg)
-
-
----
 #### 🎯 Project Goal
 A system that **synchronizes live odds from the three largest betting sites** and identifies the best betting opportunities.
 
@@ -53,6 +57,14 @@ A system that **synchronizes live odds from the three largest betting sites** an
 - **Real-time data analysis**: Data must be **collected synchronously with random timing**—requiring a **coordinator and error handling system**.  
 - **Optimizing ClickHouse for 4GB RAM**: ClickHouse is not designed for small instances, requiring fine-tuning for stability.  
 
+---
+#### 🔀 Project Data Flow
+![Project DataFlow](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/diagram3.svg)  
+
+#### 🛠️ Project Data Architecture
+![Project Diagram](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/mermaid-diagram-2025-01-08-082426.svg)
+
+---
 #### 🔧 Implementation  
 The system consists of **five servers**:
 1. **Coordinator server**:
