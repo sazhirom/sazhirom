@@ -284,8 +284,8 @@ df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
 
 <details>
   <summary>Tableau Dashboard (not my best work, but still worth sharing)</summary>
-
-  ![Dashboard](https://github.com/sazhirom/Tableau/blob/main/values.png?raw=true)
+  
+![Dashboard](https://github.com/sazhirom/Tableau/blob/main/values.png?raw=true)
 
 </details>
 
