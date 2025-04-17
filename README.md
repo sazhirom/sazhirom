@@ -156,7 +156,6 @@ The system **collects all buy and sell offers** from three sites and finds the b
 - **Infrastructure**: AWS, Bash automation, Docker testing & debugging  
 - **Visualization**: Metabase  
 
-#### 📊 Link to Dashboard
 Available **08:00 - 20:00 CET**:  
 [Metabase Dashboard](http://47.129.223.184:3000/public/dashboard/1a51169a-8c3c-4d9e-8ee7-a508fb3f7539)  
 
