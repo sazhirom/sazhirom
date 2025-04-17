@@ -34,6 +34,9 @@
 
 Main Showcase for Dashboards is here - [**Tableau Profile**](https://public.tableau.com/app/profile/george.romanov/vizzes)
 <br>
+<br>  
+
+
 | **Dashboard**         | **Description**                                  | **Link** |
 |----------------------|--------------------------------------------------|------------------|
 | ![**Hotel Survey/Linker diagram**](https://github.com/sazhirom/Tableau/blob/main/hotel.png?raw=true)  | Dashboard featuring Linker Diagram, custom filters, highlight actions. Based on synthetic data generated in Python Faker  | [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/HotelSurveyLinkerExample/Dashboard1) |
@@ -45,8 +48,10 @@ Main Showcase for Dashboards is here - [**Tableau Profile**](https://public.tabl
 ## 🔥 Complex ETL Projects
 ---
 <a id="betting"></a>
+
 ### 💰 Betting Analyzer  
 📈 [View the Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)
+
 
 
 ---
