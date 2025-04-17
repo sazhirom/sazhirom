@@ -104,7 +104,6 @@ The system consists of **five servers**:
 
 ---
 
-## 📊 Link to Dashboard  
 Updated **live** from **06:00 to 16:00 CET**:  
 [Grafana Dashboard](http://138.2.100.167:3000/public-dashboards/5c64055a2d0a432aafe2d29dae512883)  
 
