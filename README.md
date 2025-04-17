@@ -35,7 +35,7 @@
 Main Showcase for Dashboards is here - 
 | **Dashboard*         | **Description**                                  | **Link** |
 |----------------------|--------------------------------------------------|------------------|
-| [**Hotel Survey/Linker diagram**](https://github.com/sazhirom/Tableau/blob/main/hotel.png?raw=true)  | Dashboard featuring Linker Diagram, custom filters, highlight actions. Based on synthetic data generated in Python Faker  | [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/HotelSurveyLinkerExample/Dashboard1) |
+| ![**Hotel Survey/Linker diagram**](https://github.com/sazhirom/Tableau/blob/main/hotel.png?raw=true)  | Dashboard featuring Linker Diagram, custom filters, highlight actions. Based on synthetic data generated in Python Faker  | [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/HotelSurveyLinkerExample/Dashboard1) |
 
 ---
 <br>
