@@ -20,6 +20,7 @@
   - [🎮 Steam Scraper (*Python: BS4, Selenium, Pandas, NumPy → AWS → PostgreSQL → Metabase)*](#steam-scraper)
 - [📈 Smaller Projects](#small)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
+  - [📚 World Global Values survey analysis (*Python: Pandas - Tableau*)](#WVS)
 - [🛠️ Skills](#skills-section)
 - [💼 Work Experience](#experience-section)
 - [📬 Contacts](#contacts-section)
@@ -193,7 +194,88 @@ Available **08:00 - 20:00 CET**:
 
  Kaggle notebook link: [https://www.kaggle.com/code/georgiiromanov/child-mind-final](https://www.kaggle.com/code/georgiiromanov/child-mind-final) 
  
----  
+--- 
+<a id="WVS"></a>
+### 📚 World Global Values survey analysis - Python: Pandas, Tableau
+
+**Objective**: Analyze a large-scale survey to uncover meaningful insights.
+
+**Data**: 270,000 survey responses from the World Values Survey (Wave 7, 2017–2022).
+
+**Idea** I aimed to identify the most significant generational gaps within a very specific demographic: middle-aged Europeans. I compared two closely matched groups — individuals aged 25–34 and those aged 55–64. Both groups share many similarities: most have children, stable jobs, and rely on the Internet as their primary source of news. This makes the differences between them especially interesting.
+
+```python
+import pandas as pd
+import re
+
+df = pd.read_csv(r'C:\Users\user\Desktop\tableau\world global quest\wvs.csv')
+
+
+#only European countries
+df = df[df["B_COUNTRY"].isin([
+    8, 20, 40, 112, 56, 70, 100, 191, 203, 208, 233, 246, 250, 276,
+    300, 348, 352, 372, 380, 428, 438, 440, 442, 470, 498, 492, 499,
+    807, 528, 578, 616, 620, 642, 674, 688, 703, 705, 724, 752, 756,
+    804, 826, 336
+])]
+
+# define cols with age and questions for analysis
+cols_age = [col for col in df.columns if '003' in col][0]
+cols_q = [col for col in df.columns if re.match(r'Q\d+', col)]
+
+print(cols_q)
+
+df1 = df.melt(id_vars = cols_age, value_vars = cols_q, value_name = "Answer",var_name = 'Question')
+df1=df1[df1['Answer']>-1]
+
+df1 = df1.groupby(list(df1.columns)).size().reset_index(name='count')
+df1.rename(columns = {'X003R':'Age Group'},inplace = True)
+
+df1 = df1[df1['Age Group']>0]
+df1.head()
+
+df1['total'] = df1.groupby(['Age Group', 'Question'])['count'].transform('sum')
+df1 = df1[df1['Age Group'].isin([2,5])]
+
+df1['ratio'] = df1['count']/df1['total']
+
+
+df2 = df1
+df_final = df1.merge(df2, on = ['Question','Answer'], how = 'inner')
+df_final.head()
+
+index_to_drop = df_final[df_final['total_x'] == df_final['total_y']].index
+
+df = df_final.drop(index = index_to_drop)
+
+df.head()
+
+df['delta'] = round(df['ratio_y'] - df['ratio_x'],5)
+
+df_positive = df.sort_values(by = 'delta', ascending = False).head(100)
+df_positive.head()
+
+df_negative = df.sort_values(by = 'delta', ascending = True).head(100)
+df_negative.head()
+
+df_negative.to_csv(r'C:\Users\user\Desktop\tableau\world global quest\negative.csv')
+
+df1 = df.melt(id_vars = cols_age, value_vars = cols_q, value_name = "Answer",var_name = 'Question')
+df1=df1[df1['Answer']>-1]
+
+df1 = df1.groupby(list(df1.columns)).size().reset_index(name='count')
+df1.rename(columns = {'X003R':'Age Group'},inplace = True)
+df1 = df1[df1['Age Group']>0]
+df1.head()
+
+df1['total'] = df1.groupby(['Age Group', 'Question'])['count'].transform('sum')
+df1 = df1[df1['Age Group'].isin([2,5])]
+df1['ratio'] = df1['count']/df1['total']
+
+df1.head()
+df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
+```python
+
 ---
 <br>
 <br>
