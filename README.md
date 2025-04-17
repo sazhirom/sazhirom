@@ -195,6 +195,8 @@ Available **08:00 - 20:00 CET**:
  Kaggle notebook link: [https://www.kaggle.com/code/georgiiromanov/child-mind-final](https://www.kaggle.com/code/georgiiromanov/child-mind-final) 
  
 --- 
+<br>
+
 <a id="WVS"></a>
 ### 📚 World Global Values survey analysis - Python: Pandas, Tableau
 
@@ -204,6 +206,9 @@ Available **08:00 - 20:00 CET**:
 
 **Idea** I aimed to identify the most significant generational gaps within a very specific demographic: middle-aged Europeans. I compared two closely matched groups — individuals aged 25–34 and those aged 55–64. Both groups share many similarities: most have children, stable jobs, and rely on the Internet as their primary source of news. This makes the differences between them especially interesting.
 
+<details>
+  <summary>Python code</summary>
+  
 ```python
 import pandas as pd
 import re
@@ -274,7 +279,8 @@ df1['ratio'] = df1['count']/df1['total']
 
 df1.head()
 df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
-```python
+```
+</details>
 
 ---
 <br>
