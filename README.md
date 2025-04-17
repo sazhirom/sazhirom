@@ -40,11 +40,16 @@ Main Showcase for Dashboards is here - [**Tableau Profile**](https://public.tabl
 | **Dashboard**         | **Description**                                  | **Link** |
 |----------------------|--------------------------------------------------|------------------|
 | ![**Hotel Survey/Linker diagram**](https://github.com/sazhirom/Tableau/blob/main/hotel.png?raw=true)  | Dashboard featuring Linker Diagram, custom filters, highlight actions. Based on synthetic data generated in Python Faker  | [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/HotelSurveyLinkerExample/Dashboard1) |
+| ![**Purchasing Power Europe comparison**](https://github.com/sazhirom/Tableau/blob/main/costliving.png?raw=true)  | Nothing very complicated, illustrate histogram, map connected with histogram, highlight actions, and ability to customize maps. Data from Numbei  | [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/CostoflivingEurope/Dashboard1) |
+| ![**KPI Dashboard**](https://github.com/sazhirom/Tableau/blob/main/mini.png?raw=true)  |  This setup allows  dynamic month-to-month KPI comparisons, as well as year-over-year running sum analysis across all key metrics. The most complex feature - used advanced formulas with fixed views to display a running sum of percentage values, illustrating the cumulative profit ratio.| [**Link Tableau Public**](https://public.tableau.com/app/profile/george.romanov/viz/MinimalisticDashboardwithKPI/Dashboard1) |
+| ![**Green Energy**](https://github.com/sazhirom/Tableau/blob/main/green.png?raw=true)  |  Dashboards compares ratio of green energy in Top 10 GDP countries, allow compare values in absolute and relative values. | [**Link Tableau Public**](https://github.com/sazhirom/Tableau/blob/main/green.png?raw=true) |
 
 ---
 <br>
 <br>
+
 <a id="ETL"></a>
+
 ## 🔥 Complex ETL Projects
 ---
 <a id="betting"></a>
