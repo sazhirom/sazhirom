@@ -17,7 +17,6 @@
 - [📊 Dashboards (*Tableau + Grafana)*](#dashboards)
 - [🔥 Complex ETL Projects](#etl)
   - [💰 Betting Analyzer (*Python: BS4, Selenium, Pandas, NumPy → GoogleCloud → Airflow, Redis → Kafka → ClickHouse → Grafana)*](#betting)
-  - [🎮 Steam Scraper (*Python: BS4, Selenium, Pandas, NumPy → AWS → PostgreSQL → Metabase)*](#steam-scraper)
 - [📈 Smaller Projects](#small)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
   - [📚 World Global Values survey analysis (*Python: Pandas - Tableau*)](#WVS)
@@ -127,54 +126,7 @@ Updated **live** from **06:00 to 16:00 CET**:
 ---
 <br>
 <br><br>
-<a id="steam-scraper"></a>
 
-### 🎮 Steam Scraper - Result here: [Metabase Dashboard](http://47.129.223.184:3000/public/dashboard/1a51169a-8c3c-4d9e-8ee7-a508fb3f7539)
-
----
-![Project Diagram](https://raw.githubusercontent.com/sazhirom/images/969a0f40bed959fac421447a24223250edea6b76/steam-diagram.svg)
-
----
-#### 🎯 Project Goal
-Automating the search for **the most profitable deals** on trading platforms **Market-CSGO, Buff, and C5Game**.  
-The system **collects all buy and sell offers** from three sites and finds the best deals.
-
-#### 🔍 Challenges & Solutions
-- **Platform restrictions**: Websites are protected against scraping; Buff requires authentication; more than **40,000 items** are available.  
-- **Limited resources**: The **1GB RAM server** requires **code optimization, reduced I/O operations, and efficient memory management**.  
-- **Data analysis**: Price volatility and a large number of extreme values require considering **sales statistics and demand levels**.  
-
-#### 🔧 Implementation
-1. Generates a **list of potential deals** based on **price differences** between platforms.  
-2. Collects **historical sales data** (prices and dates) for each item.  
-3. Ranks recommendations using a **formula that considers profitability, data reliability, and potential selling speed**.  
-
-#### 🛠️ Technologies
-- **Programming**: Python  
-- **Database**: PostgreSQL  
-- **Infrastructure**: AWS, Bash automation, Docker testing & debugging  
-- **Visualization**: Metabase  
-
-Available **08:00 - 20:00 CET**:  
-[Metabase Dashboard](http://47.129.223.184:3000/public/dashboard/1a51169a-8c3c-4d9e-8ee7-a508fb3f7539)  
-
----
-
-### 🔥 **Project Functions & Technologies**
-
-| **Function**         | **Description**                                  | **Technologies** |
-|----------------------|--------------------------------------------------|------------------|
-| [**Data Scraping**](https://github.com/sazhirom/scraping#scraping-section)  | Collecting data from three websites and storing it as CSV.  | Python, Selenium, BeautifulSoup, Pandas, regex |
-| [**Data Processing**](https://github.com/sazhirom/scraping#wrangling-section)  | Cleaning and analyzing data, identifying profitable deals, verifying sales history for the top 150 items, validating data, and generating final recommendations. | Pandas, NumPy, regex |
-| [**SQL Database**](https://github.com/sazhirom/scraping/#SQL-section)  | Creating the database, connecting via a bastion server, storing data with psycopg2, and periodic record cleanup. | PostgreSQL, AWS, Python, psycopg2 |
-| [**AWS Infrastructure**](https://github.com/sazhirom/scraping#AWS-section)  | Setting up VPC, EC2, RDS PostgreSQL, S3, CloudWatch, IAM, security groups, and service integrations. | AWS (VPC, EC2, S3, CloudWatch, IAM) |
-| [**Docker**](https://github.com/sazhirom/scraping#Docker-section)  | Creating a container for running **Google Chrome** on EC2.  | Docker |
-| [**Bash Automation**](https://github.com/sazhirom/scraping#bash-section)  | Automating EC2 processes with Bash scripts.  | Bash |
-| [**Metabase Visualization**](https://github.com/sazhirom/scraping#Metabase-section)  | Connecting to the database via a bastion server, creating an interactive dashboard. | Metabase |
-
----
-<br>
-<br>
 
 <a id="small"></a>
 ## 📈 Smaller projects
