@@ -20,7 +20,7 @@
 - [📈 Smaller Projects](#small)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
   - [📚 World Global Values survey analysis (*Python: Pandas - Tableau*)](#WVS)
-  - [🏆 Airflow - Dynamic Dag(*Airflow, Redis*)](#Airflow)
+  - [🔁 Airflow - Dynamic Dag (*Airflow, Redis*)](#Airflow)
 - [🛠️ Skills](#skills-section)
 - [💼 Work Experience](#experience-section)
 - [📬 Contacts](#contacts-section)
@@ -241,8 +241,11 @@ df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
 
 </details>
 
+--- 
+<br>
+
 <a id="Airflow"></a>
-### 🏆 Airflow - Dynamic dags
+### 🔁 Airflow - Dynamic dags
 This is part of the legacy code from the ETL betting project.
 The idea was simple: if a scraper failed, it would set the corresponding Redis variable to 0.
 For example, if scraping from olimpbet.ru failed, the olimpbet variable in Redis would be set to 0.
@@ -252,6 +255,7 @@ Then, an Airflow DAG would check these variables every 3 minutes, restart the ne
 The code is below.
 (I eventually removed this part from the main project — it turned out to be easier to just refresh every page every 3 minutes rather than checking whether it needs refreshing.)
 
+<details>
 <summary>Dag code</summary>
   
 ```python
