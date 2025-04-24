@@ -20,6 +20,7 @@
 - [📈 Smaller Projects](#small)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
   - [📚 World Global Values survey analysis (*Python: Pandas - Tableau*)](#WVS)
+  - [🏆 Airflow - Dynamic Dag(*Airflow, Redis*)](#Airflow)
 - [🛠️ Skills](#skills-section)
 - [💼 Work Experience](#experience-section)
 - [📬 Contacts](#contacts-section)
@@ -240,7 +241,113 @@ df1.to_csv(r'C:\Users\user\Desktop\tableau\world global values\all_answers.csv')
 
 </details>
 
+<a id="Airflow"></a>
+### 🏆 Airflow - Dynamic dags
+This is part of the legacy code from the ETL betting project.
+The idea was simple: if a scraper failed, it would set the corresponding Redis variable to 0.
+For example, if scraping from olimpbet.ru failed, the olimpbet variable in Redis would be set to 0.
 
+Then, an Airflow DAG would check these variables every 3 minutes, restart the necessary DAGs if there is 0, and reset the variable to 1 after restarting.
+
+The code is below.
+(I eventually removed this part from the main project — it turned out to be easier to just refresh every page every 3 minutes rather than checking whether it needs refreshing.)
+
+<summary>Dag code</summary>
+  
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.utils.dates import days_ago
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.providers.redis.hooks.redis import RedisHook
+from airflow.decorators import dag, task
+from datetime import datetime, timedelta
+import time
+
+default_args = {
+    'owner': 'airflow',
+    'retries': 0,
+    'start_date': days_ago(1)
+}
+
+@dag(
+    dag_id="monitor",
+    description="Global monitoring DAG",
+    schedule="*/3 12-21 * * *", 
+    catchup=False,
+    start_date=days_ago(1),
+    default_args=default_args,
+)
+def global_dag():
+    @task
+    def process():
+        redis_hook = RedisHook(redis_conn_id="redis")
+        redis_client = redis_hook.get_conn()
+        current_time = datetime.now().strftime("%H:%M:%S")
+        print(f"Checking Redis at {current_time}")
+        
+        trigger_lists = []
+        
+        try:
+            olimp = redis_client.get("olimp") or b"1"
+            pinn = redis_client.get("pinn") or b"1"
+            pari = redis_client.get("pari") or b"1"
+            
+            olimp_val = int(olimp)
+            pinn_val = int(pinn)
+            pari_val = int(pari)
+            
+            if olimp_val * pinn_val * pari_val == 0:
+                print('Triggering restarts')
+                
+               
+                trigger_lists.append({
+                    "trigger_dag_id": "restart_coordinator",
+                    "task_id": "trigger_restart_coordinator"
+                })
+                
+                if olimp_val == 0:
+                    trigger_lists.append({
+                        "trigger_dag_id": "restart_olimp",
+                        "task_id": "trigger_restart_olimp"
+                    })
+                    redis_client.setex("olimp", 600, 1)
+                    
+                if pari_val == 0:
+                    trigger_lists.append({
+                        "trigger_dag_id": "restart_pari",
+                        "task_id": "trigger_restart_pari"
+                    })
+                    redis_client.setex("pari", 600, 1)
+                    
+                if pinn_val == 0:
+                    trigger_lists.append({
+                        "trigger_dag_id": "restart_pinn",
+                        "task_id": "trigger_restart_pinn"
+                    })
+                    redis_client.setex("pinn", 600, 1)
+            else:
+                print('All systems operational')
+                
+        except Exception as e:
+            print(f"Redis error: {e}")
+            # Consider failing the task here if required
+            # raise AirflowException(f"Redis error: {e}")
+        
+        return trigger_lists
+
+    # Get list of DAGs to trigger from the process task
+    trigger_configs = process()
+
+    # Create dynamically mapped TriggerDagRunOperator tasks
+    TriggerDagRunOperator.partial(
+        task_id="trigger_dag_run",
+        wait_for_completion=False
+    ).expand_kwargs(trigger_configs)
+
+global_dag_instance = global_dag()
+```
+</details>
 
 ---
 <br>
