@@ -21,6 +21,7 @@
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
   - [📚 World Global Values survey analysis (*Python: Pandas - Tableau*)](#WVS)
   - [🔁 Airflow - Dynamic Dag (*Airflow, Redis*)](#Airflow)
+  - [🧠 Sports Odds Modeling (*CatBoost, ClickHouse*)](#Catboost)
 - [🛠️ Skills](#skills-section)
 - [💼 Work Experience](#experience-section)
 - [📬 Contacts](#contacts-section)
@@ -355,6 +356,135 @@ global_dag_instance = global_dag()
 
 ---
 <br>
+
+<a id="Airflow"></a>
+### 🧠 Sports Odds Modeling (*CatBoost, ClickHouse*)
+This project uses historical match odds and results to train a machine learning model that predicts whether a placed bet was successful. The data is pulled from a ClickHouse database, cleaned and enriched with custom features such as odds ratios and team roles (favorite vs underdog). A CatBoost classifier is then trained to identify patterns and estimate bet outcomes, helping to evaluate profitability strategies based on historical data.
+
+<details>
+<summary>Catboost code</summary>
+  
+```python
+import clickhouse_connect
+import pandas as pd
+from catboost import CatBoostClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import log_loss, accuracy_score
+
+# Подключение к ClickHouse
+client = clickhouse_connect.get_client(
+    host='138.2.100.167',  # Заменить на свой хост
+    port=8123,
+    username='default',
+    password='Qwer3asdf',  # Заменить на свой пароль
+    database='ibet'
+)
+
+# Загружаем данные по матчам и результатам за последние 90 дней
+prematch = client.query_df(
+    "SELECT * FROM prematch WHERE timestamp BETWEEN NOW() - INTERVAL '95 days' AND NOW() - INTERVAL '5 days'"
+)
+results = client.query_df(
+    "SELECT * FROM results WHERE date BETWEEN NOW() - INTERVAL '95 days' AND NOW() - INTERVAL '5 days'"
+)
+
+# Чистим и объединяем таблицы по событию и дате
+prematch = prematch[(~prematch['1'].isna()) & (~prematch['2'].isna())]
+prematch['date'] = prematch['timestamp'].dt.date
+prematch.drop_duplicates(subset=['event', 'date'], inplace=True)
+
+results['date'] = pd.to_datetime(results['date']).dt.date
+results.drop_duplicates(subset=['event', 'date'], inplace=True)
+
+df = pd.merge(prematch, results, how='inner', on=['event', 'date'])
+
+# Разбиваем подкатегорию на части (subcat_0, subcat_1, ...)
+subcategory_parts = df['subcategory_x'].str.split('.')
+max_parts = subcategory_parts.map(len).max()
+subcategory_df = subcategory_parts.apply(lambda x: pd.Series(x + [None] * (max_parts - len(x))))
+subcategory_df.columns = [f'subcat_{i}' for i in range(max_parts)]
+df = df.join(subcategory_df)
+
+# Удаляем ненужные колонки
+df.drop(columns=[
+    'category_y', 'subcategory_y', 'f1', 'f2', 'total', 'subcategory_x',
+    'score1', 'score2', 'Tb', 'Tm', 'T', 'timestamp', 'date', 'subcat_3',
+    'subcat_4', 'subcat_5', 'subcat_6'
+], inplace=True)
+
+# Переименовываем кэфы
+df['odds_A'] = df['1']
+df['odds_B'] = df['2']
+
+# Определяем фаворита и андердога
+df['underdog_team'] = df.apply(lambda row: row['team1'] if row['odds_A'] > row['odds_B'] else row['team2'], axis=1)
+df['favorite_team'] = df.apply(lambda row: row['team1'] if row['odds_A'] < row['odds_B'] else row['team2'], axis=1)
+
+# Вычисляем признаки, связанные с кэфами
+df['odds_underdog'] = df[['odds_A', 'odds_B']].max(axis=1)
+df['odds_favorite'] = df[['odds_A', 'odds_B']].min(axis=1)
+df['odds_ratio'] = df['odds_favorite'] / df['odds_underdog']
+df['odds_diff'] = df['odds_favorite'] - df['odds_underdog']
+
+# Инвертируем кэфы
+df['odds_underdog'] = 1 / df['odds_underdog']
+df['odds_favorite'] = 1 / df['odds_favorite']
+
+# Удаляем лишние колонки
+df.drop(columns=['team1', 'team2', 'event'], inplace=True)
+
+# Целевая переменная — ставка сыграла (True/False)
+df['target'] = (
+    ((df['stavka'] == '1') & (df['1'].astype(float) > df['2'].astype(float))) |
+    ((df['stavka'] == '2') & (df['2'].astype(float) > df['1'].astype(float)))
+)
+
+# Удаляем использованные признаки
+df.drop(columns=['stavka', 'odds_A', 'odds_B'], inplace=True)
+
+# Инвертируем оставшиеся кэфы
+df['1'] = 1 / df['1'].astype(float)
+df['X'] = 1 / df['X'].astype(float)
+df['2'] = 1 / df['2'].astype(float)
+df['F1'] = 1 / df['F1'].astype(float)
+df['F2'] = 1 / df['F2'].astype(float)
+
+df.drop(columns=['1', 'X', '2'], inplace=True)
+
+# Подготовка данных для модели
+target = 'target'
+cat_features = ['category_x', 'subcat_0', 'subcat_1', 'subcat_2', 'underdog_team', 'favorite_team']
+features = [col for col in df.columns if col != target]
+
+X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2, random_state=42)
+X_train.fillna(-999, inplace=True)
+X_test.fillna(-999, inplace=True)
+
+# Проверка наличия категориальных признаков в данных
+cat_features_in_data = [col for col in cat_features if col in X_train.columns]
+
+# Обучение CatBoost модели
+model = CatBoostClassifier(
+    iterations=4500,
+    learning_rate=0.01,
+    depth=4,
+    l2_leaf_reg=3,
+    loss_function='Logloss',
+    eval_metric='Logloss',
+    verbose=200,
+    random_seed=42,
+    early_stopping_rounds=100,
+    task_type='GPU',
+    bagging_temperature=1,
+    random_strength=3,
+    bootstrap_type='Bayesian'
+)
+
+model.fit(X_train, y_train, cat_features=cat_features_in_data, eval_set=(X_test, y_test))
+
+```
+</details>
+
 <br>
 
 <a id="experience-section"></a>
