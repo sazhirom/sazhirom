@@ -357,7 +357,7 @@ global_dag_instance = global_dag()
 ---
 <br>
 
-<a id="Airflow"></a>
+<a id="Catboost"></a>
 ### 🧠 Sports Odds Modeling (*CatBoost, ClickHouse*)
 This project uses historical match odds and results to train a machine learning model that predicts whether a placed bet was successful. The data is pulled from a ClickHouse database, cleaned and enriched with custom features such as odds ratios and team roles (favorite vs underdog). A CatBoost classifier is then trained to identify patterns and estimate bet outcomes, helping to evaluate profitability strategies based on historical data.
 
@@ -367,121 +367,253 @@ This project uses historical match odds and results to train a machine learning 
 ```python
 import clickhouse_connect
 import pandas as pd
-from catboost import CatBoostClassifier
+import matplotlib.pyplot as plt
+import shap
+import numpy as np
+from scipy.stats import skellam
+from scipy.optimize import brentq
+import math
+from catboost import CatBoostClassifier, Pool
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import log_loss, accuracy_score
 
+
 # Подключение к ClickHouse
 client = clickhouse_connect.get_client(
-    host='138.2.100.167',  # Заменить на свой хост
-    port=8123,
-    username='default',
-    password='Qwer3asdf',  # Заменить на свой пароль
-    database='ibet'
+**************************************
 )
 
-# Загружаем данные по матчам и результатам за последние 90 дней
-prematch = client.query_df(
-    "SELECT * FROM prematch WHERE timestamp BETWEEN NOW() - INTERVAL '95 days' AND NOW() - INTERVAL '5 days'"
-)
-results = client.query_df(
-    "SELECT * FROM results WHERE date BETWEEN NOW() - INTERVAL '95 days' AND NOW() - INTERVAL '5 days'"
-)
+# SQL-запрос
+query = "SELECT * FROM prematch WHERE timestamp BETWEEN NOW() - INTERVAL '130 days' AND NOW()"
 
-# Чистим и объединяем таблицы по событию и дате
+
+# Выполнение запроса и загрузка в DataFrame
+prematch = client.query_df(query)
+
+query = "SELECT * FROM results WHERE date BETWEEN NOW() - INTERVAL '130 days' AND NOW()"
+
+# Выполнение запроса и загрузка в DataFrame
+results = client.query_df(query)
+
 prematch = prematch[(~prematch['1'].isna()) & (~prematch['2'].isna())]
+
 prematch['date'] = prematch['timestamp'].dt.date
-prematch.drop_duplicates(subset=['event', 'date'], inplace=True)
+prematch.drop_duplicates(subset = ['event','date'],inplace = True)
+prematch.head()
 
 results['date'] = pd.to_datetime(results['date']).dt.date
-results.drop_duplicates(subset=['event', 'date'], inplace=True)
+results.drop_duplicates(subset = ['event','date'],inplace = True)
 
-df = pd.merge(prematch, results, how='inner', on=['event', 'date'])
+df = pd.merge(prematch,results, how = 'inner', on = ['event','date'])
 
-# Разбиваем подкатегорию на части (subcat_0, subcat_1, ...)
+df['has_draw'] = df['X'].notna()  # True — 3 исхода, False — 2 исхода
+
+df = df[df['has_draw']]
+df = df.reset_index(drop = True)
+df.drop(columns = ['has_draw'], inplace = True)
+df = df[(df['F'].notna()) & (df['F1'].notna())]
+cols_to_check = ["X", "1", "2",'category_x']
+df = df[(df[cols_to_check] != 0).all(axis=1) & df[cols_to_check].notna().all(axis=1)]
+
+# Разбиваем подкатегорию
 subcategory_parts = df['subcategory_x'].str.split('.')
 max_parts = subcategory_parts.map(len).max()
-subcategory_df = subcategory_parts.apply(lambda x: pd.Series(x + [None] * (max_parts - len(x))))
+
+# Формируем датафрейм из подкатегорий
+subcategory_df = subcategory_parts.apply(
+    lambda x: pd.Series(x + [None] * (max_parts - len(x)))
+)
 subcategory_df.columns = [f'subcat_{i}' for i in range(max_parts)]
+
+# Объединяем с исходным df
 df = df.join(subcategory_df)
+df.drop(
+    columns=[
+        'category_y', 'subcategory_y', 'f1', 'f2', 'total', 'subcategory_x',
+        'score1', 'score2','subcat_3', 'subcat_4', 'subcat_5', 'subcat_6', 'timestamp', 'date'
+    ],
+    inplace=True,
+    errors='ignore'
+)
 
-# Удаляем ненужные колонки
-df.drop(columns=[
-    'category_y', 'subcategory_y', 'f1', 'f2', 'total', 'subcategory_x',
-    'score1', 'score2', 'Tb', 'Tm', 'T', 'timestamp', 'date', 'subcat_3',
-    'subcat_4', 'subcat_5', 'subcat_6'
-], inplace=True)
-
-# Переименовываем кэфы
 df['odds_A'] = df['1']
 df['odds_B'] = df['2']
 
-# Определяем фаворита и андердога
+# Определим команду-андердога
 df['underdog_team'] = df.apply(lambda row: row['team1'] if row['odds_A'] > row['odds_B'] else row['team2'], axis=1)
+
+# Также можно сохранить фаворита, если нужно
 df['favorite_team'] = df.apply(lambda row: row['team1'] if row['odds_A'] < row['odds_B'] else row['team2'], axis=1)
 
-# Вычисляем признаки, связанные с кэфами
-df['odds_underdog'] = df[['odds_A', 'odds_B']].max(axis=1)
+# Вычислим полезные числовые признаки
+df['odds_underdog'] = df[['odds_A', 'odds_B']].max(axis=1)  # чем выше кэф — тем меньше шанс, значит андердог
 df['odds_favorite'] = df[['odds_A', 'odds_B']].min(axis=1)
 df['odds_ratio'] = df['odds_favorite'] / df['odds_underdog']
 df['odds_diff'] = df['odds_favorite'] - df['odds_underdog']
 
-# Инвертируем кэфы
 df['odds_underdog'] = 1 / df['odds_underdog']
 df['odds_favorite'] = 1 / df['odds_favorite']
 
-# Удаляем лишние колонки
-df.drop(columns=['team1', 'team2', 'event'], inplace=True)
-
-# Целевая переменная — ставка сыграла (True/False)
 df['target'] = (
-    ((df['stavka'] == '1') & (df['1'].astype(float) > df['2'].astype(float))) |
+    ((df['stavka'] == '1') & (df['1'].astype(float) > df['2'].astype(float))) | 
     ((df['stavka'] == '2') & (df['2'].astype(float) > df['1'].astype(float)))
 )
-
-# Удаляем использованные признаки
-df.drop(columns=['stavka', 'odds_A', 'odds_B'], inplace=True)
-
-# Инвертируем оставшиеся кэфы
 df['1'] = 1 / df['1'].astype(float)
 df['X'] = 1 / df['X'].astype(float)
 df['2'] = 1 / df['2'].astype(float)
-df['F1'] = 1 / df['F1'].astype(float)
-df['F2'] = 1 / df['F2'].astype(float)
 
-df.drop(columns=['1', 'X', '2'], inplace=True)
+df = df[~df['underdog_team'].str.contains('тайм|матч|угловые|хозяева|гости|матчей', case=False, na=False)]
+df = df[~df['favorite_team'].str.contains('тайм|матч|угловые|хозяева|гости|матчей', case=False, na=False)]
 
-# Подготовка данных для модели
+cols_to_check = ["X", "1", "2"]
+df = df[(df[cols_to_check] != 0).all(axis=1) & df[cols_to_check].notna().all(axis=1)]
+
+sports_with_home_matches = [
+    'Футбол',
+    'Хоккей',
+    'Хоккей с мячом',
+    'Футзал',
+    'Гандбол',
+    'Флорбол',
+    'Водное поло',
+    'Хоккей на траве',
+    'Регби',
+    'Гэльский спорт',
+    'Хоккей на роликах',
+    'Пляжный футбол'
+]
+def home_underdog(row):
+    if row['category_x'] not in sports_with_home_matches:
+        return 'not applicable'
+    if row['team1'] == row['underdog_team']:
+        return 'home'
+    else:
+        return 'away'
+df['home_underdog'] = df.apply(home_underdog, axis = 1)
+
+
+def expected_advantage(f1, f2, f):
+    """
+    Вычисляет ожидаемое преимущество фаворита (E[G_fav - G_und]) на основе коэффициентов F1, F2 и форы F.
+    
+    Аргументы:
+        f1 (float): Коэффициент на фору для команды 1.
+        f2 (float): Коэффициент на фору для команды 2.
+        f (float): Значение форы (положительное — команда 1 андердог, отрицательное — команда 2 андердог).
+    
+    Возвращает:
+        float: Ожидаемое преимущество фаворита (неотрицательное).
+    """
+    # Преобразуем коэффициенты в вероятности
+    p1 = 1 / f1
+    p2 = 1 / f2
+    
+    # Нормализуем вероятности
+    total = p1 + p2
+    p1_normalized = p1 / total
+    p2_normalized = p2 / total
+    
+    # Определяем фаворита по знаку форы
+    if f > 0:
+        # Команда 2 — фаворит, команда 1 — андердог
+        is_team2_favorite = True
+        p_fav = p2_normalized  # P(G2 - G1 > f)
+        k = math.ceil(f)  # Порог для G2 - G1
+    elif f < 0:
+        # Команда 1 — фаворит, команда 2 — андердог
+        is_team2_favorite = False
+        p_fav = p1_normalized  # P(G1 - G2 > |f|)
+        k = math.ceil(abs(f))  # Порог для G1 - G2
+    else:  # f == 0
+        # Определяем фаворита по коэффициентам
+        is_team2_favorite = f2 < f1
+        p_fav = p2_normalized if is_team2_favorite else p1_normalized
+        k = 1  # Порог для победы (G_fav - G_und > 0)
+    
+    # Для равных коэффициентов и нулевой форы возвращаем 0
+    if f == 0 and abs(f1 - f2) < 0.01:
+        return 0.0
+    
+    # Предполагаем общее количество голов
+    total_goals = 3.0  # Можно настроить
+    
+    # Целевая функция для нахождения δ = λ_fav - λ_und
+    def objective(delta):
+        lambda_und = (total_goals - delta) / 2
+        lambda_fav = (total_goals + delta) / 2
+        if lambda_und < 0 or lambda_fav < 0:
+            return np.inf
+        # Вероятность P(G_fav - G_und >= k)
+        prob = 1 - skellam.cdf(k - 1, lambda_fav, lambda_und)
+        return prob - p_fav
+    
+    # Численное решение
+    try:
+        delta = brentq(objective, 0, total_goals - 0.001)
+    except ValueError:
+        # Приближение: δ пропорционально |f| и p_fav
+        delta_approx = abs(f) * (p_fav / (1 - p_fav)) if p_fav < 0.99 else abs(f) * 2
+        delta = max(delta_approx, 0)
+    
+    return delta
+
+
+# Вычисляем ожидаемое преимущество
+df['expected_advantage'] = df.apply(lambda row: expected_advantage(row['F1'], row['F2'], row['F']), axis=1)
+
+df.drop(columns = ['1','2','event','F1','F2','F','Tb','Tm','T'],inplace = True)
+df.drop(columns = ['stavka','odds_A','odds_B','team1','team2'],inplace = True)
+
+df.rename(columns={'category_x': 'category'}, inplace=True)
+
+df.reset_index(drop = True)
+
+
+
+# Целевая переменная
 target = 'target'
-cat_features = ['category_x', 'subcat_0', 'subcat_1', 'subcat_2', 'underdog_team', 'favorite_team']
-features = [col for col in df.columns if col != target]
 
-X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2, random_state=42)
-X_train.fillna(-999, inplace=True)
-X_test.fillna(-999, inplace=True)
+# Категориальные фичи
+cat_features = [
+    'category', 'subcat_0', 'subcat_1',
+       'subcat_2', 'home_underdog' # <--- добавлены новые категориальные признаки
+]
 
-# Проверка наличия категориальных признаков в данных
+# Включаем категориальные фичи в обучающие признаки
+features = [col for col in df.columns if col not in [target,'underdog_team','favorite_team']]
+
+# Делим на train/test
+X_train, X_test, y_train, y_test = train_test_split(
+    df[features], df[target], test_size=0.2, random_state=42
+)
+
+X_train = X_train.fillna(-999)
+X_test = X_test.fillna(-999)
+
+# Фиксим список cat_features (оставляем только те, которые реально есть в X_train)
 cat_features_in_data = [col for col in cat_features if col in X_train.columns]
 
-# Обучение CatBoost модели
+# Обучаем модель
 model = CatBoostClassifier(
-    iterations=4500,
-    learning_rate=0.01,
-    depth=4,
-    l2_leaf_reg=3,
+    iterations=3000,  # Количество итераций
+    learning_rate=0.02,  # Повышен learning_rate для более быстрой сходимости
+    depth=6,  # Увеличена глубина дерева для более сложных зависимостей
+    l2_leaf_reg=8,  # Увеличена регуляризация
     loss_function='Logloss',
     eval_metric='Logloss',
     verbose=200,
     random_seed=42,
     early_stopping_rounds=100,
-    task_type='GPU',
-    bagging_temperature=1,
-    random_strength=3,
-    bootstrap_type='Bayesian'
+    bagging_temperature=2,  # Меньше случайности для лучшей стабильности
+    random_strength=3,  # Уменьшена случайность
+    bootstrap_type='MVS',  # Модель может быть стабильнее с новым bootstrap методом
+    grow_policy='Lossguide',  # Используем Lossguide для поддержки max_leaves
+    max_leaves=100,  # Ограничение максимального количества листьев
+    min_data_in_leaf=70,  # Минимальное количество данных в листьях
+    subsample=0.85,  # Добавление случайности для предотвращения переобучения
 )
 
 model.fit(X_train, y_train, cat_features=cat_features_in_data, eval_set=(X_test, y_test))
-
 ```
 </details>
 
