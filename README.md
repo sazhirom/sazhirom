@@ -595,20 +595,20 @@ cat_features_in_data = [col for col in cat_features if col in X_train.columns]
 
 # Обучаем модель
 model = CatBoostClassifier(
-    iterations=3000,  # Количество итераций
-    learning_rate=0.02,  # Повышен learning_rate для более быстрой сходимости
-    depth=6,  # Увеличена глубина дерева для более сложных зависимостей
-    l2_leaf_reg=8,  # Увеличена регуляризация
+    iterations=3000,  
+    learning_rate=0.02,  
+    depth=6,  
+    l2_leaf_reg=8,  
     loss_function='Logloss',
     eval_metric='Logloss',
     verbose=200,
     random_seed=42,
     early_stopping_rounds=100,
-    bagging_temperature=2,  # Меньше случайности для лучшей стабильности
-    random_strength=3,  # Уменьшена случайность
-    bootstrap_type='MVS',  # Модель может быть стабильнее с новым bootstrap методом
-    grow_policy='Lossguide',  # Используем Lossguide для поддержки max_leaves
-    max_leaves=100,  # Ограничение максимального количества листьев
+    bagging_temperature=2,  
+    random_strength=3,  
+    bootstrap_type='MVS',  
+    grow_policy='Lossguide', 
+    max_leaves=100,  
     min_data_in_leaf=70,  # Минимальное количество данных в листьях
     subsample=0.85,  # Добавление случайности для предотвращения переобучения
 )
