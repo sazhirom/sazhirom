@@ -75,8 +75,6 @@ A system that **synchronizes live odds from the three largest betting sites** an
 - **Optimizing ClickHouse for 4GB RAM**: ClickHouse is not designed for small instances, requiring fine-tuning for stability.  
 
 ---
-#### 🔀 Project Data Flow
-![Project DataFlow](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/diagram3.svg)  
 
 #### 🛠️ Project Data Architecture
 ![Project Diagram](https://raw.githubusercontent.com/sazhirom/images/refs/heads/main/mermaid-diagram-2025-01-08-082426.svg)
