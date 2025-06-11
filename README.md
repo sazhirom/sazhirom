@@ -15,9 +15,9 @@
 ## 📋 Table of Contents
 
 - [📊 Dashboards (*Tableau + Grafana)*](#dashboards)
-- [🔥 Complex ETL Projects](#etl)
-  - [💰 Betting Analyzer (*Python: BS4, Selenium, Pandas, NumPy → GoogleCloud → Airflow, Redis → Kafka → ClickHouse → Grafana)*](#betting)
-- [📈 Smaller Projects](#small)
+<!--- [🔥 Complex ETL Projects](#etl)
+  - [💰 Betting Analyzer (*Python: BS4, Selenium, Pandas, NumPy → GoogleCloud → Airflow, Redis → Kafka → ClickHouse → Grafana)*](#betting)-->
+- [📈 Projects](#small)
   - [🏆 Kaggle Competition - Child Mind (*Python: Pandas, SNS, matplotlib, LGBM*)](#kaggle)
   - [📚 World Global Values survey analysis (*Python: Pandas - Tableau*)](#WVS)
   - [🔁 Airflow - Dynamic Dag (*Airflow, Redis*)](#Airflow)
@@ -53,7 +53,7 @@ Main Showcase for Dashboards is here - [**Tableau Profile**](https://public.tabl
 <br>
 
 <a id="ETL"></a>
-
+<!---
 ## 🔥 Complex ETL Projects
 ---
 <a id="betting"></a>
@@ -128,9 +128,9 @@ Updated **live** from **06:00 to 16:00 CET**:
 <br>
 <br><br>
 
-
+-->
 <a id="small"></a>
-## 📈 Smaller projects
+## 📈 Projects
 
 ---
 
